@@ -321,11 +321,47 @@ h1 {
 .card-slot:nth-child(2) { animation: dealIn 0.5s ease 0.25s both; }
 .card-slot:nth-child(3) { animation: dealIn 0.5s ease 0.4s  both; }
 
+/* swipe hint — hidden on desktop */
+.swipe-hint {
+  display: none;
+  font-size: 0.8rem;
+  font-style: italic;
+  font-weight: 600;
+  color: rgba(123,64,48,0.5);
+  text-align: center;
+  margin-top: -0.5rem;
+}
+
 /* mobile */
 @media (max-width: 700px) {
-  .cards-container { flex-direction: column; gap: 1.8rem; align-items: center; }
-  .card-inner { width: 240px; height: 336px; }
-  .card-wrapper { width: 240px; height: 336px; }
+  #cardPage { padding: 1.75rem 0 2.5rem; }
+  .page { gap: 1.5rem; }
+  .header { padding: 0 1.5rem; }
+
+  /* horizontal scroll with snap */
+  .cards-container {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 1.25rem;
+    padding: 0.75rem 2.5rem 1.25rem;
+    align-items: flex-start;
+    width: 100%;
+    scrollbar-width: none;
+  }
+  .cards-container::-webkit-scrollbar { display: none; }
+
+  .card-slot {
+    scroll-snap-align: center;
+    flex-shrink: 0;
+  }
+
+  .card-wrapper { width: 270px; height: 378px; }
+  .card-inner   { width: 270px; height: 378px; }
+
+  .swipe-hint { display: block; }
 }
 
 /* =====================
@@ -447,8 +483,16 @@ h1 {
 }
 
 @media (max-width: 600px) {
-  .pdf-frame { min-height: 60vh; }
-  .pdf-wrapper { min-height: 60vh; }
+  .menu-hero { padding: 3.5rem 1.5rem 2rem; }
+  .back-btn { top: 1rem; left: 1rem; }
+  .menu-hero-title { font-size: 2.8rem; margin-top: 0.25rem; }
+
+  .pdf-section { padding: 1rem 0 2rem; }
+  .pdf-wrapper { border-radius: 0; min-height: 65vh; }
+  .pdf-frame   { min-height: 65vh; }
+
+  .try-again-section { min-height: 3rem; }
+  .confirm-btn { padding: 0.75rem 1.75rem; font-size: 0.9rem; }
 }
 </style>
 </head>
@@ -603,6 +647,7 @@ h1 {
 
   </div>
 
+  <p class="swipe-hint">← swipe to see all cards →</p>
   <p class="footer">Happy birthday ♥</p>
 </div>
 </div>
@@ -642,8 +687,7 @@ h1 {
     '1': {
       title: 'Mediterranean',
       gradient: 'linear-gradient(160deg, #F5A623 0%, #E07818 100%)',
-      pdf: 'menu-mediterranean.pdf
-'
+      pdf: 'menu-mediterranean.pdf'
     },
     '2': {
       title: 'Greek',
